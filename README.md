@@ -73,7 +73,7 @@ class MyServiceDecorator {
 #### Decorator options
 
 `decorate` { string } Name of what you're decorating (Service, Directive, Factory, Filter, etc)\
-`inject?` { string[] } List of injections (remember that this runs at Config phase)\
+`inject?` { string[] } List of injections (remember that this runs at Config phase)
 
 > The `$decorate` method is mandatory, and you HAVE to return the parameter or your decorated service will not work
 
@@ -101,9 +101,9 @@ class MyService {
 `name?` { string } Name of your service (will be used in the injections of Componenets, others services, etc)\
 **Default:** Name of your class\
 `inject?` { string[] } Names of the injections of the this component (Services, Factories, Constants, etc)\
-`providers?`  { string[] } Same as inject, except that it is a non singleton (Works only if the Service/Factory is "nonSingleton" [See @Service options](#Service))\
+`providers?`  { string[] } Same as inject, except that it is a non singleton (Works only if the Service is "nonSingleton"\
 `nonSingleton?` { boolean } Used to define the Service as a Non Singleton service (it can also be used as a singleton, it will depend where you inject it [See @Component options "inject" and "providers"](#Component))\
-**Default:** false\
+**Default:** false
 
 ### `@Factory`
 
@@ -126,7 +126,7 @@ class MyFactory {
 
 `name?` { string } Name of your factory (will be used in the injections)\
 **Default:** Name of your class\
-`inject?` { string[] } Names of the injections of the this factory (Services, other factories, Constants, etc)\
+`inject?` { string[] } Names of the injections of the this factory (Services, other factories, Constants, etc)
 
 > I don't see any reason to use a Factory (other than HttpInterceptor or any other module that uses Factories), to be honest, Services has it all, and it's better because you can use non singletons and also inject non singletons, here you can't (yet)
 
@@ -160,7 +160,7 @@ class MyComponent {
 **Default**: Name of your class (e.g. MyComponent will be "my-component")\
 `inject?` { string[] } Array of string with the name of the injections of the this component (Services, Factories, Constants, etc)\
 `providers?` { string[] } Same as inject, except that it's a non-singleton (Works only if the Service/Factory is "nonSingleton" [See @Service](#Service))
-> More options: [Angular component docs](https://docs.angularjs.org/guide/component)\
+> More options: [Angular component docs](https://docs.angularjs.org/guide/component)
 
 ### `@Directive`
 
@@ -191,7 +191,7 @@ class MyDirective {
 
 `selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them)\
 **Default**: Name of your class (e.g. MyComponent will be "my-component")\
-`inject?` { string[] } Array of string with the name of the injections of the this directive (Services, Factories, Constants, etc)\
+`inject?` { string[] } Array of string with the name of the injections of the this directive (Services, Factories, Constants, etc)
 
 ### `@Filter`
 
@@ -269,7 +269,7 @@ class MyModule {
 `constants?` { IConstant[] } Array of Constants (angular.module().constant)\
 `filters?` { T[] } Array of Filters\
 `run?` { T[] } Array of Run\
-`bootstrap?` { element: HTMLElement, strictDi: boolean } The same as angular.boostrap, only one per application is allowed\
+`bootstrap?` { element: HTMLElement, strictDi: boolean } The same as angular.boostrap, only one per application is allowed
 
 ### `@Inject`
 

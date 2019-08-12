@@ -26,7 +26,7 @@ npm install angular-st-decorated --save-dev
 
 ## Usage
 
-This package works similarly to [ng-decorated](https://www.npmjs.com/package/ng-decorated) (Big shout to the guy who created it)
+This package works similarly to [ng-decorated](https://www.npmjs.com/package/ng-decorated) (Big shout to the guy who created it)\
 Import the Decorator you want and add to the class (Component, Service, Filter, etc) and it will add metadata to the Class to use it later in the [`@NgModule`](#@NgModule) Decorator
 
 ## Decorators
@@ -47,7 +47,7 @@ class MyConfig {
 
 #### Config options
 
-There is only one option which is the list of injections in this config
+There is only one option which is the list of injections in this config\
 You can either use the full name of the provider, or just the initial name (like `$http` or `$httpProvider`, both will work)
 The `$execute` method is mandatory, and you can also implement the interface `IConfig` if using Typescript
 
@@ -285,7 +285,7 @@ class Controller {
 
 > No reason to use this tho
 
-I'm very new to this world of publishing my things, so, if anyone has any tips to what to do, please, contact me.
-gui.stlmpp@hotmail.com / gui.stlmpp@gmail.com
-
+I'm very new to this world of publishing my things, so, if anyone has any tips to what to do, please, contact me.\
+gui.stlmpp@hotmail.com / gui.stlmpp@gmail.com\
+\
 I'll update this with more info later also

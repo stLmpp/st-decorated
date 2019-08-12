@@ -7,16 +7,16 @@ Set of Decorators to create AngularJS apps with the Decorators of Angular 2 (kin
 - [Installation](#installation)
 - [Usage](#Usage)
 - [Decorators](#Decorators)
-  - [`@Config` (beta)](#Config)
-  - [`@Decorator` (beta)](#Decorator)
-  - [`@Service` (stable)](#Service)
-  - [`@Factory` (beta)](#Factory)
-  - [`@Component` (beta)](#Component)
-  - [`@Directive` (alpha)](#Directive)
-  - [`@Filter` (beta)](#Filter)
-  - [`@Run` (beta)](#Run)
-  - [`@NgModule` (beta)](#NgModule)
-  - [`@Inject` (stable)](#Inject)
+  - [`@Config`](#Config)
+  - [`@Decorator`](#Decorator)
+  - [`@Service`](#Service)
+  - [`@Factory`](#Factory)
+  - [`@Component`](#Component)
+  - [`@Directive`](#Directive)
+  - [`@Filter`](#Filter)
+  - [`@Run`](#Run)
+  - [`@NgModule`](#NgModule)
+  - [`@Inject`](#Inject)
 
 ## Installation
 
@@ -31,7 +31,7 @@ Import the Decorator you want and add to the class (Component, Service, Filter, 
 
 ## Decorators
 
-### `@Config` (beta)
+### `@Config`
 
 ```javascript
 import { Config } from 'angular-st-decorated';
@@ -51,7 +51,7 @@ There is only one option which is the list of injections in this config
 You can either use the full name of the provider, or just the initial name (like `$http` or `$httpProvider`, both will work)
 The `$execute` method is mandatory, and you can also implement the interface `IConfig` if using Typescript
 
-### `@Decorator` (beta)
+### `@Decorator`
 
 ```javascript
 import { Decorator } from 'angular-st-decorated';
@@ -77,7 +77,7 @@ class MyServiceDecorator {
 
 > The `$decorate` method is mandatory, and you HAVE to return the parameter or your decorated service will not work
 
-### `@Service` (stable)
+### `@Service`
 
 ```javascript
 import { Service } from 'angular-st-decorated';
@@ -106,7 +106,7 @@ class MyService {
 `nonSingleton?` { boolean } Used to define the Service as a Non Singleton service (it can also be used as a singleton, it will depend where you inject it [See @Component options "inject" and "providers"](#`@Component`))
 **Default:** false
 
-### `@Factory` (beta)
+### `@Factory`
 
 ```javascript
 import { Factory } from 'angular-st-decorated';
@@ -131,7 +131,7 @@ class MyFactory {
 
 > I don't see any reason to use a Factory (other than HttpInterceptor or any other module that uses Factories), to be honest, Services has it all, and it's better because you can use non singletons and also inject non singletons, here you can't (yet)
 
-### `@Component` (beta)
+### `@Component`
 
 ```javascript
 import { Component } from 'angular-st-decorated';
@@ -162,7 +162,7 @@ class MyComponent {
 `providers?` { string[] } Same as inject, except that it's a non-singleton (Works only if the Service/Factory is "nonSingleton" [See @Service](#`@Service`))
 > More options: [Angular component docs](https://docs.angularjs.org/guide/component)
 
-### `@Directive` (alpha)
+### `@Directive`
 
 ```javascript
 import { Directive } from 'angular-st-decorated';
@@ -193,7 +193,7 @@ class MyDirective {
 **Default**: Name of your class (e.g. MyComponent will be "my-component")
 `inject?` { string[] } Array of string with the name of the injections of the this directive (Services, Factories, Constants, etc)
 
-### `@Filter` (beta)
+### `@Filter`
 
 ```javascript
 import { Filter } from 'angular-st-decorated';
@@ -211,7 +211,7 @@ class MyFilter {
 }
 ```
 
-### `@Run` (beta)
+### `@Run`
 
 ```javascript
 import { Run } from 'angular-st-decorated';
@@ -226,7 +226,7 @@ class RunPh {
 }
 ```
 
-### `@NgModule` (beta)
+### `@NgModule`
 
 ```javascript
 import { NgModule } from 'angular-st-decorated';
@@ -269,7 +269,7 @@ class MyModule {
 `run?` { T[] } Array of Run
 `bootstrap?` { element: HTMLElement, strictDi: boolean } The same as angular.boostrap, only one per application is allowed
 
-### `@Inject` (stable)
+### `@Inject`
 
 ```javascript
 import { Inject } from 'angular-st-decorated';

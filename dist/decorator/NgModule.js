@@ -1,4 +1,4 @@
-import { module, bootstrap, isString, noop, } from 'angular';
+import { module, bootstrap, isString, noop } from 'angular';
 export function NgModule(config = {}) {
     return function (target) {
         target.$stModuleName = config.module || target.name;
@@ -51,8 +51,11 @@ export function NgModule(config = {}) {
         let id = config.declarations ? config.declarations.length : 0;
         while (id--) {
             const component = config.declarations[id];
-            if (component.$stDirectiveName)
-                mod.directive(component.$stDirectiveName, () => new component);
+            if (component.$stDirectiveName) {
+                const directive = (...args) => new component(...args);
+                const directiveArr = [...component.$inject, directive];
+                mod.directive(component.$stDirectiveName, directiveArr);
+            }
             else
                 mod.component(component.$stComponentName, component.$stComponent);
         }

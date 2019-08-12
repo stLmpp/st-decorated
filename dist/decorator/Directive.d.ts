@@ -7,5 +7,4 @@ export declare function Directive(config?: DirectiveConfig): (target: any) => {
 export interface DirectiveConfig {
     selector?: string;
     inject?: string[];
-    providers?: string[];
 }

@@ -1,6 +1,6 @@
-import { module, bootstrap, isString, noop,  } from 'angular';
+import { module, bootstrap, isString, noop } from 'angular';
 
-export function NgModule(config: NgModuleConfig = {}){
+export function NgModule(config: NgModuleConfig<any> = {}){
   return function(target: any){
     target.$stModuleName = config.module || target.name;
     config.imports = config.imports || [];
@@ -49,7 +49,11 @@ export function NgModule(config: NgModuleConfig = {}){
     let id = config.declarations ? config.declarations.length : 0;
     while(id--){
       const component = config.declarations[id];
-      if (component.$stDirectiveName) mod.directive(component.$stDirectiveName, () => new component);
+      if (component.$stDirectiveName) {
+        const directive = (...args: any) => new component(...args);
+        const directiveArr = [...component.$inject, directive];
+        mod.directive(component.$stDirectiveName, directiveArr);
+      }
       else mod.component(component.$stComponentName, component.$stComponent);
     }
     let iv = config.values ? config.values.length : 0;
@@ -88,18 +92,18 @@ export function NgModule(config: NgModuleConfig = {}){
   }
 }
 
-export interface NgModuleConfig {
+export interface NgModuleConfig<T> {
   module?: string;
-  imports?: any[];
-  configs?: Function[];
-  routing?: Function;
-  providers?: any[];
-  declarations?: any[];
-  decorators?: any[];
+  imports?: Array<string | T>;
+  configs?: T[];
+  routing?: T;
+  providers?: T[];
+  declarations?: T[];
+  decorators?: T[];
   values?: IConstant[];
   constants?: IConstant[];
-  filters?: any[];
-  run?: any[];
+  filters?: T[];
+  run?: T[];
   bootstrap?: {
     element: HTMLElement;
     strictDi?: boolean;
@@ -109,8 +113,4 @@ export interface NgModuleConfig {
 export interface IConstant {
   name: string;
   value: any;
-}
-
-export interface RouteConfig {
-
 }

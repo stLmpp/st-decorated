@@ -1,16 +1,19 @@
+import { Injectable } from 'angular';
 export declare function Component(config?: ComponentConfig): (target: any) => any;
 export interface ComponentConfig {
     selector?: string;
     inject?: string[];
     providers?: string[];
     bindings?: {
-        [binding: string]: string;
+        [boundProperty: string]: string;
     };
-    template?: string;
+    template?: string | Injectable<(...args: any[]) => string>;
     controllerAs?: string;
     require?: {
-        [name: string]: string;
+        [controller: string]: string;
     };
-    transclude?: boolean;
-    templateUrl?: string;
+    transclude?: boolean | {
+        [slot: string]: string;
+    };
+    templateUrl?: string | Injectable<(...args: any[]) => string>;
 }

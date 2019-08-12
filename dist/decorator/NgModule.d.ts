@@ -1,16 +1,16 @@
-export declare function NgModule(config?: NgModuleConfig): (target: any) => void;
-export interface NgModuleConfig {
+export declare function NgModule(config?: NgModuleConfig<any>): (target: any) => void;
+export interface NgModuleConfig<T> {
     module?: string;
-    imports?: any[];
-    configs?: Function[];
-    routing?: Function;
-    providers?: any[];
-    declarations?: any[];
-    decorators?: any[];
+    imports?: Array<string | T>;
+    configs?: T[];
+    routing?: T;
+    providers?: T[];
+    declarations?: T[];
+    decorators?: T[];
     values?: IConstant[];
     constants?: IConstant[];
-    filters?: any[];
-    run?: any[];
+    filters?: T[];
+    run?: T[];
     bootstrap?: {
         element: HTMLElement;
         strictDi?: boolean;
@@ -19,6 +19,4 @@ export interface NgModuleConfig {
 export interface IConstant {
     name: string;
     value: any;
-}
-export interface RouteConfig {
 }

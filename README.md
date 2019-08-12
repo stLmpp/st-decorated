@@ -27,7 +27,7 @@ npm install angular-st-decorated --save-dev
 ## Usage
 
 This package works similarly to [ng-decorated](https://www.npmjs.com/package/ng-decorated) (Big shout to the guy who created it)\
-Import the Decorator you want and add to the class (Component, Service, Filter, etc) and it will add metadata to the Class to use it later in the [`@NgModule`](#@NgModule) Decorator
+Import the Decorator you want and add to the class (Component, Service, Filter, etc) and it will add metadata to the Class to use it later in the [`@NgModule`](#NgModule) Decorator
 
 ## Decorators
 
@@ -48,7 +48,7 @@ class MyConfig {
 #### Config options
 
 There is only one option which is the list of injections in this config\
-You can either use the full name of the provider, or just the initial name (like `$http` or `$httpProvider`, both will work)
+You can either use the full name of the provider, or just the initial name (like `$http` or `$httpProvider`, both will work)\
 The `$execute` method is mandatory, and you can also implement the interface `IConfig` if using Typescript
 
 ### `@Decorator`
@@ -98,12 +98,11 @@ class MyService {
 
 #### Service options
 
-
-`name?` { string } Name of your service (will be used in the injections of Componenets, others services, etc)
+`name?` { string } Name of your service (will be used in the injections of Componenets, others services, etc)\
 **Default:** Name of your class
 `inject?` { string[] } Names of the injections of the this component (Services, Factories, Constants, etc)
-`providers?`  { string[] } Same as inject, except that it is a non singleton (Works only if the Service/Factory is "nonSingleton" [See @Service options](#`@Service`))
-`nonSingleton?` { boolean } Used to define the Service as a Non Singleton service (it can also be used as a singleton, it will depend where you inject it [See @Component options "inject" and "providers"](#`@Component`))
+`providers?`  { string[] } Same as inject, except that it is a non singleton (Works only if the Service/Factory is "nonSingleton" [See @Service options](#Service))
+`nonSingleton?` { boolean } Used to define the Service as a Non Singleton service (it can also be used as a singleton, it will depend where you inject it [See @Component options "inject" and "providers"](#Component))\
 **Default:** false
 
 ### `@Factory`
@@ -125,7 +124,7 @@ class MyFactory {
 
 #### Factory options
 
-`name?` { string } Name of your factory (will be used in the injections)
+`name?` { string } Name of your factory (will be used in the injections)\
 **Default:** Name of your class
 `inject?` { string[] } Names of the injections of the this factory (Services, other factories, Constants, etc)
 
@@ -157,9 +156,10 @@ class MyComponent {
 
 #### Component options
 
-`selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them) **Default**: Name of your class (e.g. MyComponent will be "my-component")
+`selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them)\
+**Default**: Name of your class (e.g. MyComponent will be "my-component")
 `inject?` { string[] } Array of string with the name of the injections of the this component (Services, Factories, Constants, etc)
-`providers?` { string[] } Same as inject, except that it's a non-singleton (Works only if the Service/Factory is "nonSingleton" [See @Service](#`@Service`))
+`providers?` { string[] } Same as inject, except that it's a non-singleton (Works only if the Service/Factory is "nonSingleton" [See @Service](#Service))
 > More options: [Angular component docs](https://docs.angularjs.org/guide/component)
 
 ### `@Directive`
@@ -189,7 +189,7 @@ class MyDirective {
 
 #### Directive options
 
-`selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them) 
+`selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them)\
 **Default**: Name of your class (e.g. MyComponent will be "my-component")
 `inject?` { string[] } Array of string with the name of the injections of the this directive (Services, Factories, Constants, etc)
 
@@ -255,7 +255,7 @@ class MyModule {
 
 #### NgModule options
 
-`module?` { string } Name of your module
+`module?` { string } Name of your module\
 **Default:** Name of your class
 `imports?` { Array<string | T> } Names of your others modules (string) or the class itself
 `configs?` { T[] } Array of configs

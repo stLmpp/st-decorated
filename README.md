@@ -4,7 +4,17 @@ Set of Decorators to create AngularJS apps with the Decorators of Angular 2 (kin
 
  - [Installation](#installation)
  - [Usage](#Usage)
-
+ - [Decorators](#Decorators)
+  - [`@Config`](#Config)
+  - [`@Decorator`](#Decorator)
+  - [`@Service`](#Service)
+  - [`@Factory`](#Factory)
+  - [`@Component`](#Component)
+  - [`@Directive`](#Directive)
+  - [`@Filter`](#Filter)
+  - [`@Run`](#Run)
+  - [`@NgModule`](#NgModule)
+  - [`@Inject`](#Inject)
 ## Installation
 
 ```node

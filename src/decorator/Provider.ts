@@ -3,8 +3,9 @@ import { Util } from "../shared/util";
 export function Provider(config: ProviderConfig = {}){
   return function(target: any){
     target.$stProviderName = config.name || target.name;
-    config.inject = config.inject = [];
+    config.inject = config.inject || [];
     Util.$inject(target, config.inject);
+    console.log(target);
     return Util.injectAll(target);
   }
 }

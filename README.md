@@ -130,6 +130,30 @@ class MyFactory {
 
 > I don't see any reason to use a Factory (other than HttpInterceptor or any other module that uses Factories), to be honest, Services has it all, and it's better because you can use non singletons and also inject non singletons, here you can't (yet)
 
+### `@Provider`
+
+```javascript
+import { Provider } from 'angular-st-decorated';
+
+@Provider({
+  inject: [
+    'MyConstant'
+  ]
+})
+class MyFactory {
+  @Inject('$http')
+  $get($http){
+    return this;
+  }
+}
+```
+
+#### Provider options
+
+`name?` { string } name of your Provider\
+**Default:** Name of your class\
+`inject?` { string[] } Names of the injections of the this factory (Services, other factories, Constants, etc)
+
 ### `@Component`
 
 ```javascript
@@ -284,8 +308,6 @@ class Controller {
   }
 }
 ```
-
-> No reason to use this tho
 
 I'm very new to this world of publishing my things, so, if anyone has any tips to what to do, please, contact me.\
 gui.stlmpp@hotmail.com / gui.stlmpp@gmail.com\

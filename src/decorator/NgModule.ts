@@ -44,6 +44,8 @@ export function NgModule(config: NgModuleConfig<any> = {}){
         const factoryFn = (...args: any) => new service(...args);
         const factory = [...service.$inject, factoryFn];
         mod.factory(factoryName, factory);
+      } else if (service.$stProviderName){
+        mod.provider(service.$stProviderName, service);
       }
     }
     let id = config.declarations ? config.declarations.length : 0;

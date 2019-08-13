@@ -99,7 +99,7 @@ class MyService {
 #### Service options
 
 `name?` { string } Name of your service (will be used in the injections of Componenets, others services, etc)\
-**Default:** Name of your class\
+**Default:** Name of your class (if your class ends with "Component" it will be removed, so `MyThingComponent` will become `my-thing`\
 `inject?` { string[] } Names of the injections of the this component (Services, Factories, Constants, etc)\
 `providers?`  { string[] } Same as inject, except that it is a non singleton (Works only if the Service is "nonSingleton"\
 `nonSingleton?` { boolean } Used to define the Service as a Non Singleton service (it can also be used as a singleton, it will depend where you inject it [See @Component options "inject" and "providers"](#Component))\
@@ -125,7 +125,7 @@ class MyFactory {
 #### Factory options
 
 `name?` { string } Name of your factory (will be used in the injections)\
-**Default:** Name of your class\
+**Default:** Name of your class (if your class ends with "Directive" it will be removed, so `MyThingDirective` will become `my-thing`\
 `inject?` { string[] } Names of the injections of the this factory (Services, other factories, Constants, etc)
 
 > I don't see any reason to use a Factory (other than HttpInterceptor or any other module that uses Factories), to be honest, Services has it all, and it's better because you can use non singletons and also inject non singletons, here you can't (yet)
@@ -286,7 +286,7 @@ class MyModule {
 `imports?` { Array<string | T> } Names of your others modules (string) or the class itself\
 `configs?` { T[] } Array of configs\
 `routing?` { T } Your routing config\
-`providers?` { T[] } Array of Services and Factories\
+`providers?` { T[] } Array of Services, Factories and Providers\
 `declarations?` { T[] } Array of Components and Directives\
 `decorators?` { T[] } Array of Decorators (config)\
 `values?` { IConstant[] } Array of Values (angular.module().value)\

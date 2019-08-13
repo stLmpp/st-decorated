@@ -30,8 +30,9 @@ export class Util {
   }
   static replace(what: WhatModule, name: string, type: TypeName){
     if (type === 'name'){
-      const reg = new RegExp(`(?=^(?![${what}])(?=.*${what}$))`, 'i');
+      const reg = new RegExp(`(?=(?!^[${what}$])(?=.*${what}$))`, 'i');
       if (reg.test(name)) name = name.replace(new RegExp(what, 'i'), '');
+      
       name = name.replace(/^\w/, str => str.toLowerCase());
     }
     return camelCase(name);

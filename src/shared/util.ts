@@ -1,11 +1,15 @@
 import camelCase from 'lodash/camelCase';
+import { element } from 'angular';
 
 export class Util {
   static injectNg(injectables: any[], inject: Inject[], scope: any){
+    const $injector = element(window.$stDecorate.bootstrapedEl).injector();
     for(let i = 0, len = injectables.length; i < len; i++){
       let inj = inject[i],
       isNonSingleton = window.$stDecorate.nonSingletons.includes(inj.inject);
-      if (inj.providedIn === 'local' && isNonSingleton) scope[inj.inject] = new injectables[i]();
+      if (inj.providedIn === 'local' && isNonSingleton) {
+        scope[inj.inject] = $injector.instantiate(injectables[i]);
+      }
       else scope[inj.inject] = injectables[i];
     }
   }
@@ -23,8 +27,8 @@ export class Util {
       }
     }
   }
-  static $inject(target: any, inject: string[], providers: string[] = []){
-    target.$stInject = inject || [];
+  static $inject(target: any, inject: string[] = [], providers: string[] = []){
+    target.$stInject = inject;
     target.$stProviders = providers;
     target.$inject = [...target.$stInject, ...target.$stProviders.map((o: string) => `${o}NonSingleton`)];
   }

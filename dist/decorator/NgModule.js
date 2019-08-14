@@ -9,12 +9,11 @@ export function NgModule(config = {}) {
             return dep;
         }));
         let ic = config.configs ? config.configs.length : 0;
-        while (ic--) {
-            mod.config(config.configs[ic]);
-        }
+        for (let i = 0; i < ic; i++)
+            mod.config(config.configs[i]);
         let idec = config.decorators ? config.decorators.length : 0;
-        while (idec--) {
-            const decoratorDef = config.decorators[idec];
+        for (let i = 0; i < idec; i++) {
+            const decoratorDef = config.decorators[i];
             const decorateFn = function ($injector, $delegate) {
                 let instance = $injector.instantiate(decoratorDef);
                 if (!instance.$decorate) {
@@ -26,34 +25,34 @@ export function NgModule(config = {}) {
             const decoratorArr = ['$injector', '$delegate', decorateFn];
             mod.decorator(decoratorDef.$stDecoratedName, decoratorArr);
         }
-        if (config.routing) {
+        if (config.routing)
             mod.config(config.routing);
-        }
         let is = config.providers ? config.providers.length : 0;
-        while (is--) {
-            const service = config.providers[is];
+        for (let i = 0; i < is; i++) {
+            const service = config.providers[i];
             if (service.$stServiceName) {
                 if (service.$stNonSingleton) {
-                    mod.factory(`${service.$stServiceName}NonSingleton`, service);
-                    mod.service(service.$stServiceName, service());
+                    mod.factory(`${service.$stServiceName}NonSingleton`, service.$stFactory);
+                    mod.service(service.$stServiceName, service);
                 }
                 else {
                     mod.service(service.$stServiceName, service);
                 }
             }
             else if (service.$stFactoryName) {
-                const factoryName = service.$stFactoryName;
-                const factoryFn = (...args) => new service(...args);
-                const factory = [...service.$inject, factoryFn];
-                mod.factory(factoryName, factory);
+                const factoryFn = function ($injector) {
+                    let instance = $injector.instantiate(service);
+                    return instance;
+                };
+                mod.factory(service.$stFactoryName, ['$injector', factoryFn]);
             }
             else if (service.$stProviderName) {
                 mod.provider(service.$stProviderName, service);
             }
         }
         let id = config.declarations ? config.declarations.length : 0;
-        while (id--) {
-            const component = config.declarations[id];
+        for (let i = 0; i < id; i++) {
+            const component = config.declarations[i];
             if (component.$stDirectiveName) {
                 const directive = (...args) => new component(...args);
                 const directiveArr = [...component.$inject, directive];
@@ -63,18 +62,18 @@ export function NgModule(config = {}) {
                 mod.component(component.$stComponentName, component.$stComponent);
         }
         let iv = config.values ? config.values.length : 0;
-        while (iv--) {
-            const value = config.values[iv];
+        for (let i = 0; i < iv; i++) {
+            const value = config.values[i];
             mod.value(value.name, value.value);
         }
         let ico = config.constants ? config.constants.length : 0;
-        while (ico--) {
-            const constant = config.constants[ico];
+        for (let i = 0; i < ico; i++) {
+            const constant = config.constants[i];
             mod.constant(constant.name, constant.value);
         }
         let ifi = config.filters ? config.filters.length : 0;
-        while (ifi--) {
-            const filterDef = config.filters[ifi];
+        for (let i = 0; i < ifi; i++) {
+            const filterDef = config.filters[i];
             const filterFn = function ($injector) {
                 let instance = $injector.instantiate(filterDef);
                 if (!instance.$transform) {
@@ -86,11 +85,11 @@ export function NgModule(config = {}) {
             mod.filter(filterDef.$stFilterName, ['$injector', filterFn]);
         }
         let ir = config.run ? config.run.length : 0;
-        while (ir--) {
-            const run = config.run[ir];
-            mod.run(run);
+        for (let i = 0; i < ir; i++) {
+            mod.run(config.run[i]);
         }
         if (config.bootstrap) {
+            window.$stDecorate.bootstrapedEl = config.bootstrap.element;
             bootstrap(config.bootstrap.element, [target.$stModuleName], {
                 strictDi: !!config.bootstrap.strictDi
             });

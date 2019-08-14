@@ -5,5 +5,6 @@ declare global {
 }
 export interface StDecorate {
     nonSingletons?: string[];
+    bootstrapedEl: HTMLElement;
 }
 export * from './decorator/Decorator.module';

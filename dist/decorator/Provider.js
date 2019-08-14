@@ -4,7 +4,6 @@ export function Provider(config = {}) {
         target.$stProviderName = config.name || target.name;
         config.inject = config.inject || [];
         Util.$inject(target, config.inject);
-        console.log(target);
         return Util.injectAll(target);
     };
 }

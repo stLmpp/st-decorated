@@ -6,7 +6,7 @@ export declare class Util {
         };
         [x: string]: any;
     };
-    static $inject(target: any, inject: string[], providers?: string[]): void;
+    static $inject(target: any, inject?: string[], providers?: string[]): void;
     static replace(what: WhatModule, name: string, type: TypeName): string;
 }
 declare type WhatModule = 'component' | 'directive';

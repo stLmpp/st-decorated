@@ -4,6 +4,7 @@ export function Decorator(config: DecoratorConfig){
   return function(target: any){
     target.$stDecoratedName = config.decorated;
     Util.$inject(target, config.inject);
+    target.$stType = 'decorator';
     return Util.injectAll(target);
   }
 }

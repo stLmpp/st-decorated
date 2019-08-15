@@ -17,6 +17,7 @@ export function Directive(config = {}) {
                 }
             };
         });
+        target.$stType = type;
         return Util.injectAll(target);
     };
 }

@@ -17,6 +17,7 @@ export function Component(config: ComponentConfig = {}){
     }
     target.$stComponent = component;
     target.$stComponentName = Util.replace(type, config.selector, 'selector') || Util.replace(type, target.name, 'name');
+    target.$stType = type;
     return target.$stComponent.controller;
   }
 }

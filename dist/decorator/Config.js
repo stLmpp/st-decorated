@@ -8,6 +8,7 @@ export function Config(...injections) {
             }
             return inject;
         }));
+        target.$stType = 'config';
         return Util.injectAll(target, '$execute');
     };
 }

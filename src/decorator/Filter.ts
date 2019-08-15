@@ -2,8 +2,9 @@ import { Util } from "../shared/util";
 
 export function Filter(config: FilterConfig = {}){
   return function(target: any){
-    target.$stFilterName = config.name || target.name;
+    target.$stName = config.name || target.name;
     Util.$inject(target, config.inject);
+    target.$stType = 'filter';
     return Util.injectAll(target);
   }
 }

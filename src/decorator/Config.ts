@@ -9,6 +9,7 @@ export function Config(...injections: string[]){
       }
       return inject;
     }));
+    target.$stType = 'config';
     return Util.injectAll(target, '$execute');
   }
 }

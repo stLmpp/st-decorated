@@ -3,6 +3,7 @@ import { module, bootstrap, isString, noop } from 'angular';
 export function NgModule(config: NgModuleConfig<any> = {}){
   return function(target: any){
     target.$stModuleName = config.module || target.name;
+    target.$stType = 'module';
     config.imports = config.imports || [];
     let mod = module(target.$stModuleName, config.imports.map(dep => {
       if (!isString(dep)) dep = dep.$stModuleName;
@@ -27,28 +28,28 @@ export function NgModule(config: NgModuleConfig<any> = {}){
     if (config.routing) mod.config(config.routing);
     let is = config.providers ? config.providers.length : 0;
     for (let i = 0; i < is; i++){
-      const service = config.providers[i];
-      if (service.$stServiceName) {
+      const service = config.providers[i],
+      type = service.$stType;
+      if (type === 'service') {
+        mod.service(service.$stName, service);
         if (service.$stNonSingleton) {
-          mod.factory(`${service.$stServiceName}NonSingleton`, service.$stFactory);
-          mod.service(service.$stServiceName, service);
-        } else {
-          mod.service(service.$stServiceName, service);
+          mod.factory(`${service.$stName}NonSingleton`, service.$stFactory);
         }
-      } else if (service.$stFactoryName){
+      } else if (type === 'factory'){
         const factoryFn = function($injector: any){
           let instance = $injector.instantiate(service);
           return instance;
         }
-        mod.factory(service.$stFactoryName, ['$injector', factoryFn]);
-      } else if (service.$stProviderName){
-        mod.provider(service.$stProviderName, service);
+        mod.factory(service.$stName, ['$injector', factoryFn]);
+      } else if (type === 'provider'){
+        mod.provider(service.$stName, service);
       }
     }
     let id = config.declarations ? config.declarations.length : 0;
     for(let i = 0; i < id; i++){
-      const component = config.declarations[i];
-      if (component.$stDirectiveName) {
+      const component = config.declarations[i],
+      type = component.$stType;
+      if (type === 'directive') {
         const directive = (...args: any) => new component(...args);
         const directiveArr = [...component.$inject, directive];
         mod.directive(component.$stDirectiveName, directiveArr);
@@ -71,12 +72,12 @@ export function NgModule(config: NgModuleConfig<any> = {}){
       const filterFn = function($injector: any){
         let instance = $injector.instantiate(filterDef);
         if (!instance.$transform){
-          console.error(`Filter "${filterDef.$stFilterName}" does not have a $transform method`);
+          console.error(`Filter "${filterDef.$stName}" does not have a $transform method`);
           return noop();
         }
         return instance.$transform.bind(instance);
       }
-      mod.filter(filterDef.$stFilterName, ['$injector', filterFn]);
+      mod.filter(filterDef.$stName, ['$injector', filterFn]);
     }
     let ir = config.run ? config.run.length : 0;
     for(let i = 0; i < ir; i++){

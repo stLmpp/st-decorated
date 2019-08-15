@@ -1,6 +1,6 @@
 {
   "name": "angular-st-decorated",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "description": "Decorators for AngularJS (Angular 2 style)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,5 +21,9 @@
     "angular": "^1.7.8",
     "angular-ui-router.statehelper": "^1.3.1",
     "lodash": "^4.17.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stLmpp/st-decorated.git"
   }
 }

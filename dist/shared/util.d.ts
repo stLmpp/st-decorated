@@ -6,13 +6,18 @@ export declare class Util {
         };
         [x: string]: any;
     };
-    static $inject(target: any, inject?: string[], providers?: string[]): void;
+    static $inject(target: any, inject?: any[], providers?: any[]): void;
+    static getInjectableName(inject: any, providedIn: ProvidedIn, useNonSingleton?: boolean): string;
+    static getInjectabledType(inject: any, providedIn: ProvidedIn): Inject;
+    static transformInjectables(injectArr: any[], providedIn?: ProvidedIn): Inject[];
+    static transformInjectableString(injectArr: any[], providedIn?: ProvidedIn): string[];
     static replace(what: WhatModule, name: string, type: TypeName): string;
 }
 declare type WhatModule = 'component' | 'directive';
 declare type TypeName = 'selector' | 'name';
+declare type ProvidedIn = 'global' | 'local';
 export interface Inject {
     inject: string;
-    providedIn: 'global' | 'local';
+    providedIn: ProvidedIn;
 }
 export {};

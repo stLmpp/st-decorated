@@ -1,5 +1,5 @@
 import camelCase from 'lodash/camelCase';
-import { element } from 'angular';
+import { element, isString } from 'angular';
 
 export class Util {
   static injectNg(injectables: any[], inject: Inject[], scope: any){
@@ -18,19 +18,46 @@ export class Util {
     return class extends target {
       constructor(...args: any){
         super(...args);
-        const inject = [
-          ...target.$stInject.map((o: string) => ({inject: o, providedIn: 'global'})),
-          ...target.$stProviders.map((o: string) => ({inject: o, providedIn: 'local'}))
+        const inject: Inject[] = [
+          ...util.transformInjectables(target.$stInject),
+          ...util.transformInjectables(target.$stProviders, 'local')
         ];
         util.injectNg(args, inject, this);
         if (executeMethod && this[executeMethod]) this[executeMethod]();
       }
     }
   }
-  static $inject(target: any, inject: string[] = [], providers: string[] = []){
+  static $inject(target: any, inject: any[] = [], providers: any[] = []){
     target.$stInject = inject;
     target.$stProviders = providers;
-    target.$inject = [...target.$stInject, ...target.$stProviders.map((o: string) => `${o}NonSingleton`)];
+    target.$inject = [
+      ...this.transformInjectableString(target.$stInject), 
+      ...this.transformInjectableString(target.$stProviders, 'local')
+    ];
+  }
+  static getInjectableName(inject: any, providedIn: ProvidedIn, useNonSingleton: boolean = true): string {
+    let injectabledName = '';
+    if (!isString(inject)){
+      injectabledName = inject.$stName;
+      if (inject.$stType === 'filter'){
+        injectabledName += 'Filter';
+      }
+    } else injectabledName = inject;
+    if (providedIn === 'local' && useNonSingleton) injectabledName += 'NonSingleton';
+    return injectabledName;
+  }
+  static getInjectabledType(inject: any, providedIn: ProvidedIn): Inject{
+    return { inject: this.getInjectableName(inject, providedIn, false), providedIn };
+  }
+  static transformInjectables(injectArr: any[], providedIn: ProvidedIn = 'global'): Inject[]{
+    return injectArr.map(inject => {
+      return this.getInjectabledType(inject, providedIn);
+    })
+  }
+  static transformInjectableString(injectArr: any[], providedIn: ProvidedIn = 'global'): string[]{
+    return injectArr.map(inject => {
+      return this.getInjectableName(inject, providedIn);
+    })
   }
   static replace(what: WhatModule, name: string, type: TypeName){
     if (type === 'name'){
@@ -45,8 +72,9 @@ export class Util {
 
 type WhatModule = 'component' | 'directive';
 type TypeName = 'selector' | 'name';
+type ProvidedIn = 'global' | 'local';
 
 export interface Inject {
   inject: string;
-  providedIn: 'global' | 'local';
+  providedIn: ProvidedIn;
 }

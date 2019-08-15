@@ -14,7 +14,8 @@ export class Util {
     }
     static injectAll(target, executeMethod) {
         let util = this;
-        return class extends target {
+        const className = target.name;
+        let c = class extends target {
             constructor(...args) {
                 super(...args);
                 const inject = [
@@ -26,6 +27,8 @@ export class Util {
                     this[executeMethod]();
             }
         };
+        Object.defineProperty(c, 'name', { value: className });
+        return c;
     }
     static $inject(target, inject = [], providers = []) {
         target.$stInject = inject;

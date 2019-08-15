@@ -15,17 +15,21 @@ export class Util {
   }
   static injectAll(target: any, executeMethod?: string){
     let util = this;
-    return class extends target {
-      constructor(...args: any){
-        super(...args);
-        const inject: Inject[] = [
-          ...util.transformInjectables(target.$stInject),
-          ...util.transformInjectables(target.$stProviders, 'local')
-        ];
-        util.injectNg(args, inject, this);
-        if (executeMethod && this[executeMethod]) this[executeMethod]();
+    const className = target.name;
+    let c = 
+      class extends target {
+        constructor(...args: any){
+          super(...args);
+          const inject: Inject[] = [
+            ...util.transformInjectables(target.$stInject),
+            ...util.transformInjectables(target.$stProviders, 'local')
+          ];
+          util.injectNg(args, inject, this);
+          if (executeMethod && this[executeMethod]) this[executeMethod]();
+        }
       }
-    }
+    Object.defineProperty(c, 'name', {value: className});
+    return c;
   }
   static $inject(target: any, inject: any[] = [], providers: any[] = []){
     target.$stInject = inject;

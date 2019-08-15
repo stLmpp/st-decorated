@@ -1,9 +1,4 @@
-export declare function Filter(config?: FilterConfig): (target: any) => {
-    new (...args: any): {
-        [x: string]: any;
-    };
-    [x: string]: any;
-};
+export declare function Filter(config?: FilterConfig): (target: any) => any;
 export interface FilterConfig {
     name?: string;
     inject?: string[];

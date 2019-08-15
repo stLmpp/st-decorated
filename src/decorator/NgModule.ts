@@ -26,23 +26,35 @@ export function NgModule(config: NgModuleConfig<any> = {}){
       mod.decorator(decoratorDef.$stDecoratedName, decoratorArr);
     }
     if (config.routing) mod.config(config.routing);
-    let is = config.providers ? config.providers.length : 0;
+    config.providers = config.providers || [];
+    if (config.bootstrap) config.providers.push(...window.$stDecorate.globalProviders);
+    let is = config.providers.length;
     for (let i = 0; i < is; i++){
-      const service = config.providers[i],
-      type = service.$stType;
+      const provider = config.providers[i],
+      type = provider.$stType;
       if (type === 'service') {
-        mod.service(service.$stName, service);
-        if (service.$stNonSingleton) {
-          mod.factory(`${service.$stName}NonSingleton`, service.$stFactory);
+        mod.service(provider.$stName, provider);
+        if (provider.$stNonSingleton) {
+          mod.factory(`${provider.$stName}NonSingleton`, provider.$stFactory);
         }
       } else if (type === 'factory'){
         const factoryFn = function($injector: any){
-          let instance = $injector.instantiate(service);
+          let instance = $injector.instantiate(provider);
           return instance;
         }
-        mod.factory(service.$stName, ['$injector', factoryFn]);
+        mod.factory(provider.$stName, ['$injector', factoryFn]);
       } else if (type === 'provider'){
-        mod.provider(service.$stName, service);
+        mod.provider(provider.$stName, provider);
+      } else if (type === 'filter'){
+        const filterFn = function($injector: any){
+          let instance = $injector.instantiate(provider);
+          if (!instance.$transform){
+            console.error(`Filter "${provider.$stName}" does not have a $transform method`);
+            return noop();
+          }
+          return instance.$transform.bind(instance);
+        }
+        mod.filter(provider.$stName, ['$injector', filterFn]);
       }
     }
     let id = config.declarations ? config.declarations.length : 0;
@@ -66,24 +78,12 @@ export function NgModule(config: NgModuleConfig<any> = {}){
       const constant = config.constants[i];
       mod.constant(constant.name, constant.value);
     }
-    let ifi = config.filters ? config.filters.length : 0;
-    for(let i = 0; i < ifi; i++){
-      const filterDef = config.filters[i];
-      const filterFn = function($injector: any){
-        let instance = $injector.instantiate(filterDef);
-        if (!instance.$transform){
-          console.error(`Filter "${filterDef.$stName}" does not have a $transform method`);
-          return noop();
-        }
-        return instance.$transform.bind(instance);
-      }
-      mod.filter(filterDef.$stName, ['$injector', filterFn]);
-    }
     let ir = config.run ? config.run.length : 0;
     for(let i = 0; i < ir; i++){
       mod.run(config.run[i]);
     }
     if (config.bootstrap) {
+      console.log('BOOTSTRAP ROLANDO');
       window.$stDecorate.bootstrapedEl = config.bootstrap.element;
       bootstrap(config.bootstrap.element, [target.$stModuleName], {
         strictDi: !!config.bootstrap.strictDi
@@ -102,7 +102,6 @@ export interface NgModuleConfig<T> {
   decorators?: T[];
   values?: IConstant[];
   constants?: IConstant[];
-  filters?: T[];
   run?: T[];
   bootstrap?: {
     element: HTMLElement;

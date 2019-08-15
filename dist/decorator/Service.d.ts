@@ -4,4 +4,5 @@ export interface ServiceConfig {
     name?: string;
     nonSingleton?: boolean;
     providers?: string[];
+    global?: boolean;
 }

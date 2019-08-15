@@ -6,7 +6,8 @@ declare global {
 
 let $stDecorate: StDecorate = {
   nonSingletons: [],
-  bootstrapedEl: document.documentElement
+  bootstrapedEl: document.documentElement,
+  globalProviders: []
 }
 
 window.$stDecorate = $stDecorate;
@@ -14,6 +15,7 @@ window.$stDecorate = $stDecorate;
 export interface StDecorate {
   nonSingletons?: string[];
   bootstrapedEl: HTMLElement;
+  globalProviders: any[];
 }
 
 export * from './decorator/Decorator.module';

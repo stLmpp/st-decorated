@@ -9,7 +9,6 @@ export interface NgModuleConfig<T> {
     decorators?: T[];
     values?: IConstant[];
     constants?: IConstant[];
-    filters?: T[];
     run?: T[];
     bootstrap?: {
         element: HTMLElement;

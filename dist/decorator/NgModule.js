@@ -88,7 +88,6 @@ export function NgModule(config = {}) {
             mod.run(config.run[i]);
         }
         if (config.bootstrap) {
-            console.log('BOOTSTRAP ROLANDO');
             window.$stDecorate.bootstrapedEl = config.bootstrap.element;
             bootstrap(config.bootstrap.element, [target.$stModuleName], {
                 strictDi: !!config.bootstrap.strictDi

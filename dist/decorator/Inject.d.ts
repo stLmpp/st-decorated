@@ -1,1 +1,1 @@
-export declare function Inject(...injections: string[]): (target: any, key: string, descriptor: PropertyDescriptor) => void;
+export declare function Inject(...injections: any[]): (target: any, key: string, descriptor: PropertyDescriptor) => void;

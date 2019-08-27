@@ -2,8 +2,8 @@ import { Injectable } from 'angular';
 export declare function Component(config?: ComponentConfig): (target: any) => any;
 export interface ComponentConfig {
     selector?: string;
-    inject?: string[];
-    providers?: string[];
+    inject?: any[];
+    providers?: any[];
     bindings?: {
         [boundProperty: string]: string;
     };

@@ -1,18 +1,18 @@
-import { Util } from "../shared/util";
+import { $inject, injectAll } from "../shared/util";
 
 export function Provider(config: ProviderConfig = {}){
   return function(target: any){
     target.$stName = config.name || target.name;
     config.inject = config.inject || [];
-    Util.$inject(target, config.inject);
+    $inject(target, config.inject);
     target.$stType = 'provider';
-    return Util.injectAll(target);
+    return injectAll(target);
   }
 }
 
 export interface ProviderConfig {
   name?: string;
-  inject?: string[];
+  inject?: any[];
 }
 
 export interface IProvider {

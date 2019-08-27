@@ -1,4 +1,4 @@
-export declare function Config(...injections: string[]): (target: any) => {
+export declare function Config(...injections: any[]): (target: any) => {
     new (...args: any): {
         [x: string]: any;
     };

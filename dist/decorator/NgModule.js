@@ -1,4 +1,5 @@
 import { module, bootstrap, isString, noop } from 'angular';
+import { $dict } from '../shared/util';
 export function NgModule(config = {}) {
     return function (target) {
         target.$stModuleName = config.module || target.name;
@@ -36,9 +37,7 @@ export function NgModule(config = {}) {
             const provider = config.providers[i], type = provider.$stType;
             if (type === 'service') {
                 mod.service(provider.$stName, provider);
-                if (provider.$stNonSingleton) {
-                    mod.factory(`${provider.$stName}NonSingleton`, provider.$stFactory);
-                }
+                mod.factory($dict.nonSingletonFn(provider.$stName), provider.$stFactory);
             }
             else if (type === 'factory') {
                 const factoryFn = function ($injector) {

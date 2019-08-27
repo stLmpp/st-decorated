@@ -1,8 +1,7 @@
 export declare function Service(config?: ServiceConfig): (target: any) => any;
 export interface ServiceConfig {
-    inject?: string[];
+    inject?: any[];
     name?: string;
-    nonSingleton?: boolean;
-    providers?: string[];
+    providers?: any[];
     global?: boolean;
 }

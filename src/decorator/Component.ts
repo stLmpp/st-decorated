@@ -1,13 +1,13 @@
 import { IComponentOptions, Injectable } from 'angular';
-import { Util } from '../shared/util';
+import { $inject, injectAll, replace } from '../shared/util';
 
 const type = 'component';
 
 export function Component(config: ComponentConfig = {}){
   return function(target: any){
-    Util.$inject(target, config.inject, config.providers);
+    $inject(target, config.inject, config.providers);
     let component: IComponentOptions = {
-      controller: Util.injectAll(target),
+      controller: injectAll(target),
       bindings: config.bindings,
       template: config.template,
       controllerAs: config.controllerAs,
@@ -16,7 +16,7 @@ export function Component(config: ComponentConfig = {}){
       templateUrl: config.templateUrl
     }
     target.$stComponent = component;
-    target.$stComponentName = Util.replace(type, config.selector, 'selector') || Util.replace(type, target.name, 'name');
+    target.$stComponentName = replace(type, config.selector, 'selector') || replace(type, target.name, 'name');
     target.$stType = type;
     return target.$stComponent.controller;
   }
@@ -24,8 +24,8 @@ export function Component(config: ComponentConfig = {}){
 
 export interface ComponentConfig {
   selector?: string;
-  inject?: string[];
-  providers?: string[];
+  inject?: any[];
+  providers?: any[];
   bindings?: {
     [boundProperty: string]: string
   };

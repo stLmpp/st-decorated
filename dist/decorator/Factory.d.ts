@@ -6,5 +6,5 @@ export declare function Factory(config?: FactoryConfig): (target: any) => {
 };
 export interface FactoryConfig {
     name?: string;
-    inject?: string[];
+    inject?: any[];
 }

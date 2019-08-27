@@ -6,7 +6,7 @@ export declare function Provider(config?: ProviderConfig): (target: any) => {
 };
 export interface ProviderConfig {
     name?: string;
-    inject?: string[];
+    inject?: any[];
 }
 export interface IProvider {
     $get(...injections: string[]): any;

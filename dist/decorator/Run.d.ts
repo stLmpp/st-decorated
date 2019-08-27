@@ -1,4 +1,4 @@
-export declare function Run(...injections: string[]): (target: any) => {
+export declare function Run(...injections: any[]): (target: any) => {
     new (...args: any): {
         [x: string]: any;
     };

@@ -1,10 +1,10 @@
-import { Util } from "../shared/util";
+import { $inject, injectAll } from "../shared/util";
 
-export function Run(...injections: string[]){
+export function Run(...injections: any[]){
   return function(target: any){
-    Util.$inject(target, injections || []);
+    $inject(target, injections || []);
     target.$stType = 'run';
-    return Util.injectAll(target, '$execute');
+    return injectAll(target, '$execute');
   }
 }
 

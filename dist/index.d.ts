@@ -4,7 +4,6 @@ declare global {
     }
 }
 export interface StDecorate {
-    nonSingletons?: string[];
     bootstrapedEl: HTMLElement;
     globalProviders: any[];
 }

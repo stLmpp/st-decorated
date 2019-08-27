@@ -6,7 +6,7 @@ export declare function Decorator(config: DecoratorConfig): (target: any) => {
 };
 export interface DecoratorConfig {
     decorated: string;
-    inject?: string[];
+    inject?: any[];
 }
 export interface IDecorator {
     $decorate($delegate: any): any;

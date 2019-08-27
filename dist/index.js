@@ -1,5 +1,4 @@
 let $stDecorate = {
-    nonSingletons: [],
     bootstrapedEl: document.documentElement,
     globalProviders: []
 };

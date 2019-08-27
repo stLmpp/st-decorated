@@ -1,6 +1,7 @@
 import { module, bootstrap, isString, noop } from 'angular';
+import { $dict } from '../shared/util';
 
-export function NgModule(config: NgModuleConfig<any> = {}){
+export function NgModule(config: NgModuleConfig = {}){
   return function(target: any){
     target.$stModuleName = config.module || target.name;
     target.$stType = 'module';
@@ -34,9 +35,7 @@ export function NgModule(config: NgModuleConfig<any> = {}){
       type = provider.$stType;
       if (type === 'service') {
         mod.service(provider.$stName, provider);
-        if (provider.$stNonSingleton) {
-          mod.factory(`${provider.$stName}NonSingleton`, provider.$stFactory);
-        }
+        mod.factory($dict.nonSingletonFn(provider.$stName), provider.$stFactory);
       } else if (type === 'factory'){
         const factoryFn = function($injector: any){
           let instance = $injector.instantiate(provider);
@@ -91,17 +90,17 @@ export function NgModule(config: NgModuleConfig<any> = {}){
   }
 }
 
-export interface NgModuleConfig<T> {
+export interface NgModuleConfig {
   module?: string;
-  imports?: Array<string | T>;
-  configs?: T[];
-  routing?: T;
-  providers?: T[];
-  declarations?: T[];
-  decorators?: T[];
+  imports?: any[];
+  configs?: any[];
+  routing?: any;
+  providers?: any[];
+  declarations?: any[];
+  decorators?: any[];
   values?: IConstant[];
   constants?: IConstant[];
-  run?: T[];
+  run?: any[];
   bootstrap?: {
     element: HTMLElement;
     strictDi?: boolean;

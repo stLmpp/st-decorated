@@ -1,16 +1,11 @@
-import { Util } from "../shared/util";
+import { $inject, injectAll } from "../shared/util";
 
-export function Config(...injections: string[]){
+export function Config(...injections: any[]){
   return function(target: any){
     injections = injections || [];
-    Util.$inject(target, injections.map(inject => {
-      if (!/Provider$/.test(inject)) {
-        inject += 'Provider';
-      }
-      return inject;
-    }));
+    $inject(target, injections);
     target.$stType = 'config';
-    return Util.injectAll(target, '$execute');
+    return injectAll(target, '$execute');
   }
 }
 

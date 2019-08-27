@@ -47,9 +47,7 @@ class MyConfig {
 
 #### Config options
 
-There is only one option which is the list of injections in this config\
-You can either use the full name of the provider, or just the initial name (like `$http` or `$httpProvider`, both will work)\
-The `$execute` method is mandatory, and you can also implement the interface `IConfig` if using Typescript
+There is only one option which is the list of injections in this config
 
 ### `@Decorator`
 
@@ -72,8 +70,10 @@ class MyServiceDecorator {
 
 #### Decorator options
 
-`decorate` { string } Name of what you're decorating (Service, Directive, Factory, Filter, etc)\
-`inject?` { string[] | T[] } List of injections (remember that this runs at Config phase)
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| decorate | string | Name of what you're decorating (Service, Directive, Factory, Filter, etc) | undefined | Yes |
+| inject | any[] | List of injections (string or class) | undefined | No |
 
 > The `$decorate` method is mandatory, and you HAVE to return the parameter or your decorated service will not work
 
@@ -99,14 +99,12 @@ class MyService {
 
 #### Service options
 
-`name?` { string } Name of your service (will be used in the injections of Componenets, others services, etc)\
-**Default:** Name of your class (if your class ends with "Component" it will be removed, so `MyThingComponent` will become `my-thing`\
-`inject?` { string[] | T[] } List of injections of the this component (Services, Factories, Constants, etc)\
-`providers?`  { string[] | T[] } Same as inject, except that it is a non singleton (Works only if the Service is "nonSingleton"\
-`nonSingleton?` { boolean } Used to define the Service as a Non Singleton service (it can also be used as a singleton, it will depend where you inject it [See @Component options "inject" and "providers"](#Component))\
-**Default:** false\
-`global` { boolean } Inject the Service globally (in the bootstraped Module, to be precise)\
-**Default** true
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| name | string | Name of your service (will be used as a injectable) | Name of your class | No |
+| inject | any[] | List of injections (string or class) | undefined | No |
+| providers | any[] | List of injections (Only work with services), but it provides a new instance, that is, it will not use the global instance of your service | undefined | No |
+| global | boolean | Inject the Service globally (in the bootstraped Module, to be precise) and only if you import it in one of your injections | false | No |
 
 ### `@Factory`
 
@@ -127,9 +125,10 @@ class MyFactory {
 
 #### Factory options
 
-`name?` { string } Name of your factory (will be used in the injections)\
-**Default:** Name of your class (if your class ends with "Directive" it will be removed, so `MyThingDirective` will become `my-thing`\
-`inject?` { string[] | T[] } List of injections of the this factory (Services, other factories, Constants, etc)
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| name | string | Name of your factory (will be used as a injectable) | Name of your class | No |
+| inject | any[] | List of injections (string or class) | undefined | No |
 
 > I don't see any reason to use a Factory (other than HttpInterceptor or any other module that uses Factories), to be honest, Services has it all, and it's better because you can use non singletons and also inject non singletons, here you can't (yet)
 
@@ -153,9 +152,10 @@ class MyFactory {
 
 #### Provider options
 
-`name?` { string } name of your Provider\
-**Default:** Name of your class\
-`inject?` { string[] | T[] } List of injections of the this factory (Services, other factories, Constants, etc)
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| name | string | Name of your provider (will be used as a injectable) | Name of your class | No |
+| inject | any[] | List of injections (string or class) | undefined | No |
 
 ### `@Component`
 
@@ -183,10 +183,11 @@ class MyComponent {
 
 #### Component options
 
-`selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them)\
-**Default**: Name of your class (e.g. MyComponent will be "my-component")\
-`inject?` { string[] | T[] } List of injections of the this component (Services, Factories, Constants, etc)\
-`providers?` { string[] | T[] } Same as inject, except that it's a non-singleton (Works only if the Service/Factory is "nonSingleton" [See @Service](#Service))
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| selector | string | This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them) | Name of your class | No |
+| inject | any[] | List of injections (string or class) | undefined | No |
+| providers | any[] | List of injections (Only work with services), but it provides a new instance, that is, it will not use the global instance of your service | undefined | No |
 > More options: [Angular component docs](https://docs.angularjs.org/guide/component)
 
 ### `@Directive`
@@ -198,13 +199,13 @@ import { Directive } from 'angular-st-decorated';
   selector: 'my-directive',
   inject: [
     'MyService'
-  ]
-})
-class MyDirective {
+  ],
   scope = {
     'myDirective': '@'
-  };
-  retrict = 'EA';
+  },
+  restrict: 'EA'
+})
+class MyDirective {
   link($scope, $element){
     // Do something here
   }
@@ -216,9 +217,10 @@ class MyDirective {
 
 #### Directive options
 
-`selector?` { string } This is the selector of your component, used in the template, you can use Camel case or hyphen separated names (or mix them)\
-**Default**: Name of your class (e.g. MyComponent will be "my-component")\
-`inject?` { string[] | T[] } List of injections of the this directive (Services, Factories, Constants, etc)
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| selector | string | This is the selector of your directive, used in the template, you can use Camel case or hyphen separated names (or mix them) | Name of your class | No |
+| inject | any[] | List of injections (string or class) | undefined | No |
 
 ### `@Filter`
 
@@ -238,6 +240,13 @@ class MyFilter {
 }
 ```
 
+#### Filter options
+
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| name | string | Name of your filter | Name of your class | No |
+| inject | any[] | List of injections (string or class) | undefined | No |
+
 ### `@Run`
 
 Like the config, there only one options for Run, and it's the list of injections
@@ -254,6 +263,10 @@ class RunPh {
   }
 }
 ```
+
+#### Run options
+
+There is only one option which is the list of injections
 
 ### `@NgModule`
 
@@ -284,18 +297,19 @@ class MyModule {
 
 #### NgModule options
 
-`module?` { string } Name of your module\
-**Default:** Name of your class\
-`imports?` { Array<string | T> } Names of your others modules (string) or the class itself\
-`configs?` { T[] } Array of configs\
-`routing?` { T } Your routing config\
-`providers?` { T[] } Array of Filters, Services, Factories and Providers\
-`declarations?` { T[] } Array of Components and Directives\
-`decorators?` { T[] } Array of Decorators (config)\
-`values?` { IConstant[] } Array of Values (angular.module().value)\
-`constants?` { IConstant[] } Array of Constants (angular.module().constant)\
-`run?` { T[] } Array of Run\
-`bootstrap?` { element: HTMLElement, strictDi: boolean } The same as angular.boostrap, only one per application is allowed
+| Name | Type | Description | Default | Required |
+| ---- | ---- | ----------- | ------- | -------- |
+| module | string | Name of your module | Name of your class | No |
+| import | any[]  | An array with the others modules you want to import, this can be a name (string) or the class of the module | undefined | No |
+| configs | any[] | An array with the Config classes | undefined | No |
+| decorators | any[] | An array with the Decorators classes | undefined | No |
+| routing | any | A class with the routing config class | undefined | No |
+| providers | any[] | An array with the Services, Providers, Factories and Filters (classes) | undefined | No |
+| declarations | any[] | An array with the Components and Directives classes | undefined | No |
+| values | IConstant[] | An array of Values (module.value) | undefined | No |
+| constants | IConstant[] | An Array of Constants (module.constant) | undefined | No |
+| run | any[] | An Array of Run's (module.run) classes | undefined | No |
+| bootstrap | { element: HTMLElement, strictDi: boolean } | It's the same as angular.bootstrap. Only one module can have bootstrap | undefined | No |
 
 ### `@Inject`
 
@@ -310,6 +324,11 @@ class Controller {
   }
 }
 ```
+
+### Notes
+
+> If you plan to minify your files, you will need to use the "name" and "selector" properties, because if you let the default (Name of the class) for Services or for Components, and your class get the named changed in the minify process, it will break the app, so, it's a good thing to ALWAYS use the name/selector option
+
 
 I'm very new to this world of publishing my things, so, if anyone has any tips to what to do, please, contact me.\
 gui.stlmpp@hotmail.com / gui.stlmpp@gmail.com\

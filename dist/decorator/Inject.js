@@ -1,11 +1,12 @@
+import { $inject } from "../shared/util";
 export function Inject(...injections) {
     return function (target, key, descriptor) {
         injections = injections || [];
         if (descriptor) {
-            descriptor.value.$inject = injections;
+            $inject(descriptor.value, injections);
         }
         else {
-            target.$inject = injections;
+            $inject(target, injections);
         }
     };
 }

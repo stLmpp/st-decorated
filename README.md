@@ -334,7 +334,7 @@ class Controller {
 > If you plan to minify your files, you will need to use the "name" and "selector" properties, because if you let the default (Name of the class) for Services or for Components, and your class get the named changed in the minify process, it will break the app, so, it's a good thing to ALWAYS use the name/selector option
 
 
-I'm very new to this world of publishing my things, so, if anyone has any tips to what to do, please, contact me.\
+I'm very new to this world of publishing my things, so, if anyone has any tips on what to do, please, contact me.\
 gui.stlmpp@hotmail.com / gui.stlmpp@gmail.com\
 \
 I'll update this with more info later also

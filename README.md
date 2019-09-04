@@ -29,6 +29,8 @@ npm install angular-st-decorated --save-dev
 This package works similarly to [ng-decorated](https://www.npmjs.com/package/ng-decorated) (Big shout to the guy who created it)\
 Import the Decorator you want and add to the class (Component, Service, Filter, etc) and it will add metadata to the Class to use it later in the [`@NgModule`](#NgModule) Decorator
 
+> The `$execute` method is mandatory
+
 ## Decorators
 
 ### `@Config`
@@ -267,6 +269,8 @@ class RunPh {
 #### Run options
 
 There is only one option which is the list of injections
+
+> The `$execute` method is mandatory
 
 ### `@NgModule`
 

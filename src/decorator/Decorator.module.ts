@@ -1,6 +1,6 @@
 export * from './Component';
 export * from './Directive';
-export * from './NgModule';
+export * from './NgModule/index';
 export * from './Service';
 export * from './Provider';
 export * from './Config';

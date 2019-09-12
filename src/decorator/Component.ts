@@ -1,4 +1,4 @@
-import { IComponentOptions, Injectable } from 'angular';
+import { IComponentOptions } from 'angular';
 import { $inject, injectAll, replace } from '../shared/util';
 
 const type = 'component';
@@ -25,20 +25,8 @@ export function Component(config: ComponentConfig = {}){
   }
 }
 
-export interface ComponentConfig {
+export interface ComponentConfig extends Omit<Partial<IComponentOptions>, 'controller'> {
   selector?: string;
   inject?: any[];
   providers?: any[];
-  bindings?: {
-    [boundProperty: string]: string
-  };
-  template?: string | Injectable<(...args: any[]) => string>;
-  controllerAs?: string;
-  require?: {
-    [controller: string]: string
-  };
-  transclude?: boolean | {
-    [slot: string]: string
-  };
-  templateUrl?: string | Injectable<(...args: any[]) => string>;
 }

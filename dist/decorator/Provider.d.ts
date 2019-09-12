@@ -8,6 +8,3 @@ export interface ProviderConfig {
     name?: string;
     inject?: any[];
 }
-export interface IProvider {
-    $get(...injections: string[]): any;
-}

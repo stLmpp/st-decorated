@@ -8,6 +8,7 @@
     ],
     "declaration": true,
     //"outDir": "../st-decorated test/node_modules/angular-st-decorated/dist",
+    //"outDir": "../testing/node_modules/angular-st-decorated/dist",
     "outDir": "dist",
     "esModuleInterop": true
   },

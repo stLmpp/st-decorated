@@ -1,5 +1,5 @@
 import { injectAll, $inject, replace } from "../shared/util";
-import { IAttributes } from 'angular';
+import { IAttributes, IDirective } from 'angular';
 
 const type = 'directive';
 
@@ -54,28 +54,7 @@ function transformProperties(prototype: any, properties: {[name: string]: any}){
   }
 }
 
-export interface DirectiveConfig {
+export interface DirectiveConfig extends Omit<Partial<IDirective>, 'controller' | 'compile' | 'link'> {
   selector?: string;
   inject?: any[];
-  controllerAs?: string;
-  bindToController?: boolean | {
-    [boundProperty: string]: string
-  };
-  multiElement?: boolean;
-  priority?: number;
-  replace?: boolean;
-  require?: string | string[] | {
-    [controller: string]: string
-  };
-  restrict?: string;
-  scope?: boolean | {
-    [boundProperty: string]: string
-  };
-  template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
-  templateNamespace?: string;
-  templateUrl?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
-  terminal?: boolean;
-  transclude?: boolean | 'element' | {
-    [slot: string]: string
-  };
 }

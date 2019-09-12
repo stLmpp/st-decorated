@@ -1,3 +1,4 @@
+import { IModule } from 'angular';
 export declare function injectNg(injectables: any[], inject: Inject[], scope: any): void;
 export declare function injectAll(target: any, executeMethod?: string): {
     new (...args: any): {
@@ -17,5 +18,9 @@ export interface Inject {
 export declare const $dict: {
     nonSingleton: string;
     nonSingletonFn: (name: string) => string;
+};
+export declare function declareModule(name: string, imports: string[]): {
+    module: IModule;
+    name: string;
 };
 export {};

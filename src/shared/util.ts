@@ -1,5 +1,5 @@
 import camelCase from 'lodash/camelCase';
-import { element, isString } from 'angular';
+import { element, isString, module, IModule } from 'angular';
 
 export function injectNg(injectables: any[], inject: Inject[], scope: any){
   const $injector = element(window.$stDecorate.bootstrapedEl).injector();
@@ -89,4 +89,14 @@ export interface Inject {
 export const $dict = {
   nonSingleton: '$stDecoratedNonSingleton',
   nonSingletonFn: (name: string): string => $dict.nonSingleton + name
+}
+
+export function declareModule(name: string, imports: string[]): {module: IModule, name: string}{
+  try {
+    module(name);
+    return declareModule(`${name}#`, imports);
+  } catch (ex) {
+    let mod = module(name, imports);
+    return { module: mod, name };
+  }
 }

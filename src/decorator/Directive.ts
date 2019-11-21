@@ -1,11 +1,11 @@
 import { injectAll, $inject, replace } from "../shared/util";
-import { IAttributes, IDirective } from 'angular';
+import { IDirective } from 'angular';
 
 const type = 'directive';
 
 export function Directive(config: DirectiveConfig = {}){
   return function(target: any){
-    target.$stDirectiveName = replace(type, config.selector, 'selector') || replace(type, target.name, 'name');
+    target.$stDirectiveName = replace(type, config.selector, 'selector') ?? replace(type, target.name, 'name');
     $inject(target, config.inject);
     if (!target.prototype.compile){
       target.prototype.compile = () => {};
@@ -39,7 +39,7 @@ export function Directive(config: DirectiveConfig = {}){
         terminal: config.terminal,
         transclude: config.transclude
       }
-    )
+    );
     return injectAll(target);
   }
 }

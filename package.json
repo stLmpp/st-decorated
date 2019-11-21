@@ -13,11 +13,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/angular": "^1.6.56",
-    "@types/lodash": "^4.14.138",
-    "typescript": "^3.6.2"
+    "@types/lodash": "^4.14.149",
+    "typescript": "^3.7.2"
   },
   "dependencies": {
-    "angular": "^1.7.8",
+    "angular": "^1.7.9",
     "lodash": "^4.17.15"
   },
   "repository": {

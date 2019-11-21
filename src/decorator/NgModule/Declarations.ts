@@ -1,7 +1,7 @@
 import { IModule } from "angular";
 
 export function declareDeclarations(mod: IModule, declarations: any[]){
-  let id = declarations ? declarations.length : 0;
+  let id = declarations?.length ?? 0;
   for(let i = 0; i < id; i++){
     const component = declarations[i],
     type = component.$stType;

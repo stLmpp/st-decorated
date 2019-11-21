@@ -1,5 +1,5 @@
-import { bootstrap, isString, noop } from 'angular';
-import { $dict, declareModule } from '../../shared/util';
+import { bootstrap, isString } from 'angular';
+import { declareModule } from '../../shared/util';
 import { declareDecorators } from './Decorators';
 import { declareProviders } from './Providers';
 import { declareDeclarations } from './Declarations';
@@ -8,9 +8,9 @@ import { declareConstants } from './Constants';
 
 export function NgModule(config: NgModuleConfig = {}){
   return function(target: any){
-    target.$stModuleName = config.module || target.name;
+    target.$stModuleName = config.module ?? target.name;
     target.$stType = 'module';
-    config.imports = config.imports || [];
+    config.imports = config.imports ?? [];
     let moduleInfo = declareModule(target.$stModuleName, config.imports.map(dep => {
       if (!isString(dep)) dep = dep.$stModuleName;
       return dep;
@@ -20,7 +20,7 @@ export function NgModule(config: NgModuleConfig = {}){
     declareBase(mod, config.configs, 'config');
     declareDecorators(mod, config.decorators);
     if (config.routing) mod.config(config.routing);
-    config.providers = config.providers || [];
+    config.providers = config.providers ?? [];
     if (config.bootstrap) config.providers.push(...window.$stDecorate.globalProviders);
     declareProviders(mod, config.providers);
     declareDeclarations(mod, config.declarations);

@@ -7,7 +7,7 @@ declare global {
 let $stDecorate: StDecorate = {
   bootstrapedEl: document.documentElement,
   globalProviders: []
-}
+};
 
 window.$stDecorate = $stDecorate;
 

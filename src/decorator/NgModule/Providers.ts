@@ -1,5 +1,5 @@
-import { IModule, noop } from "angular";
-import { $dict } from "../../shared/util";
+import { IModule, noop } from 'angular';
+import { $dict } from '../../shared/util';
 
 export function declareProviders(mod: IModule, providers: any[]){
   let is = providers.length;
@@ -11,9 +11,8 @@ export function declareProviders(mod: IModule, providers: any[]){
       mod.factory($dict.nonSingletonFn(provider.$stName), provider.$stFactory);
     } else if (type === 'factory'){
       const factoryFn = function($injector: any){
-        let instance = $injector.instantiate(provider);
-        return instance;
-      }
+        return $injector.instantiate(provider);
+      };
       mod.factory(provider.$stName, ['$injector', factoryFn]);
     } else if (type === 'provider'){
       mod.provider(provider.$stName, provider);
@@ -25,7 +24,7 @@ export function declareProviders(mod: IModule, providers: any[]){
           return noop();
         }
         return instance.$transform.bind(instance);
-      }
+      };
       mod.filter(provider.$stName, ['$injector', filterFn]);
     }
   }

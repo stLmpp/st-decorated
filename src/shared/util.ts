@@ -7,8 +7,7 @@ export function injectNg(injectables: any[], inject: Inject[], scope: any){
     let inj = inject[i];
     if (inj.providedIn === 'local') {
       scope[inj.inject] = $injector.instantiate(injectables[i]);
-    }
-    else scope[inj.inject] = injectables[i];
+    } else scope[inj.inject] = injectables[i];
   }
 }
 
@@ -25,7 +24,7 @@ export function injectAll(target: any, executeMethod?: string){
         injectNg(args, inject, this);
         if (executeMethod && this[executeMethod]) this[executeMethod]();
       }
-    }
+    };
   Object.defineProperty(c, 'name', {value: className});
   return c;
 }
@@ -89,7 +88,7 @@ export interface Inject {
 export const $dict = {
   nonSingleton: '$stDecoratedNonSingleton',
   nonSingletonFn: (name: string): string => $dict.nonSingleton + name
-}
+};
 
 export function declareModule(name: string, imports: string[]): {module: IModule, name: string}{
   try {

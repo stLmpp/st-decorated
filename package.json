@@ -1,6 +1,6 @@
 {
   "name": "angular-st-decorated",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Decorators for AngularJS (Angular 2 style)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

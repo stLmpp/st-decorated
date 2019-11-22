@@ -2,7 +2,7 @@ import { injectAll, $inject, replace } from "../shared/util";
 const type = 'directive';
 export function Directive(config = {}) {
     return function (target) {
-        target.$stDirectiveName = replace(type, config.selector, 'selector') || replace(type, target.name, 'name');
+        target.$stDirectiveName = replace(type, config.selector, 'selector') ?? replace(type, target.name, 'name');
         $inject(target, config.inject);
         if (!target.prototype.compile) {
             target.prototype.compile = () => { };

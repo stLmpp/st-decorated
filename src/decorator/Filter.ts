@@ -1,13 +1,13 @@
-import { $inject, injectAll } from "../shared/util";
+import { $inject, DecoratorFn, injectAll } from '../shared/util';
 
-export function Filter(config: FilterConfig = {}){
-  return function(target: any){
-    target.$stName = config.name ?? target.name;
+export function Filter({ inject, name }: FilterConfig = {}): DecoratorFn {
+  return function(target: any): any {
+    target.$stName = name ?? target.name;
     target.$stType = 'filter';
-    $inject(target, config.inject);
+    $inject(target, inject);
     target = injectAll(target);
     return target;
-  }
+  };
 }
 
 export interface FilterConfig {

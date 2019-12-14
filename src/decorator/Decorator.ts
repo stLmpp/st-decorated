@@ -1,12 +1,12 @@
-import { $inject, injectAll } from "../shared/util";
+import { $inject, DecoratorFn, injectAll } from '../shared/util';
 
-export function Decorator(config: DecoratorConfig){
-  return function(target: any){
-    target.$stDecoratedName = config.decorated;
-    $inject(target, config.inject);
+export function Decorator({ decorated, inject }: DecoratorConfig): DecoratorFn {
+  return function(target: any): any {
+    target.$stDecoratedName = decorated;
+    $inject(target, inject);
     target.$stType = 'decorator';
     return injectAll(target);
-  }
+  };
 }
 
 export interface DecoratorConfig {

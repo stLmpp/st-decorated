@@ -4,12 +4,10 @@ declare global {
   }
 }
 
-let $stDecorate: StDecorate = {
+window.$stDecorate = {
   bootstrapedEl: document.documentElement,
-  globalProviders: []
+  globalProviders: [],
 };
-
-window.$stDecorate = $stDecorate;
 
 export interface StDecorate {
   bootstrapedEl: HTMLElement;

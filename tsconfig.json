@@ -1,22 +1,14 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "target": "es2017",
+    "module": "es6",
+    "lib": ["esnext", "dom"],
     "declaration": true,
     //"outDir": "../st-decorated test/node_modules/angular-st-decorated/dist",
     //"outDir": "../testing/node_modules/angular-st-decorated/dist",
     "outDir": "dist",
     "esModuleInterop": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,13 +1,13 @@
-import { $inject, injectAll } from "../shared/util";
+import { $inject, DecoratorFn, injectAll } from '../shared/util';
 
-export function Provider(config: ProviderConfig = {}){
-  return function(target: any){
-    target.$stName = config.name ?? target.name;
-    config.inject = config.inject ?? [];
-    $inject(target, config.inject);
+export function Provider({ inject, name }: ProviderConfig = {}): DecoratorFn {
+  return function(target: any): any {
+    target.$stName = name ?? target.name;
+    inject = inject ?? [];
+    $inject(target, inject);
     target.$stType = 'provider';
     return injectAll(target);
-  }
+  };
 }
 
 export interface ProviderConfig {

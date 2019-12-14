@@ -1,31 +1,47 @@
 import { IComponentOptions } from 'angular';
-import { $inject, injectAll, replace } from '../shared/util';
+import { $inject, DecoratorFn, injectAll, replace } from '../shared/util';
 
 const type = 'component';
 
-export function Component(config: ComponentConfig = {}){
-  return function(target: any){
-    $inject(target, config.inject, config.providers);
-    let component: IComponentOptions = {
+export function Component({
+  bindings,
+  controllerAs,
+  inject,
+  providers,
+  require,
+  selector,
+  template,
+  templateUrl,
+  transclude,
+}: ComponentConfig = {}): DecoratorFn {
+  return function(target: any): any {
+    $inject(target, inject, providers);
+    const component: IComponentOptions = {
       controller: injectAll(target),
-      bindings: config.bindings,
-      template: config.template,
-      controllerAs: config.controllerAs,
-      require: config.require,
-      transclude: config.transclude,
-      templateUrl: config.templateUrl
+      bindings,
+      template,
+      controllerAs,
+      require,
+      transclude,
+      templateUrl,
     };
-    if (!component.template && !component.templateUrl && target.$templateResolver){
+    if (
+      !component.template &&
+      !component.templateUrl &&
+      target.$templateResolver
+    ) {
       component.template = target.$templateResolver;
     }
     target.$stComponent = component;
-    target.$stComponentName = replace(type, config.selector, 'selector') ?? replace(type, target.name, 'name');
+    target.$stComponentName =
+      replace(type, selector, 'selector') ?? replace(type, target.name, 'name');
     target.$stType = type;
     return target.$stComponent.controller;
-  }
+  };
 }
 
-export interface ComponentConfig extends Omit<Partial<IComponentOptions>, 'controller'> {
+export interface ComponentConfig
+  extends Omit<Partial<IComponentOptions>, 'controller'> {
   selector?: string;
   inject?: any[];
   providers?: any[];

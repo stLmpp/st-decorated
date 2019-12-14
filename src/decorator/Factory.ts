@@ -1,12 +1,12 @@
-import { $inject, injectAll } from "../shared/util";
+import { $inject, DecoratorFn, injectAll } from '../shared/util';
 
-export function Factory(config: FactoryConfig = {}){
-  return function(target: any){
-    target.$stName = config.name ?? target.name;
-    $inject(target, config.inject);
+export function Factory({ inject, name }: FactoryConfig = {}): DecoratorFn {
+  return function(target: any): any {
+    target.$stName = name ?? target.name;
+    $inject(target, inject);
     target.$stType = 'factory';
     return injectAll(target);
-  }
+  };
 }
 
 export interface FactoryConfig {

@@ -14,7 +14,9 @@
   "devDependencies": {
     "@types/angular": "^1.6.56",
     "@types/lodash": "^4.14.149",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1"
   },
   "dependencies": {
     "angular": "^1.7.9",

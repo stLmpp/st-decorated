@@ -1,20 +1,25 @@
-import { $inject, injectAll } from "../shared/util";
+import { $inject, DecoratorFn, injectAll } from '../shared/util';
 
-export function Service(config: ServiceConfig = {}){
-  return function(target: any){
-    target.$stName = config.name ?? target.name;
+export function Service({
+  global,
+  inject,
+  name,
+  providers,
+}: ServiceConfig = {}): DecoratorFn {
+  return function(target: any): any {
+    target.$stName = name ?? target.name;
     target.$stType = 'service';
-    $inject(target, config.inject, config.providers);
+    $inject(target, inject, providers);
     target = injectAll(target);
     const origin = target;
-    target.$stFactory = function(){
+    target.$stFactory = function(): any {
       return origin;
     };
-    if (config.global === true){
+    if (global === true) {
       window.$stDecorate.globalProviders.push(target);
     }
     return target;
-  }
+  };
 }
 
 export interface ServiceConfig {

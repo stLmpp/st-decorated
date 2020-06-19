@@ -108,7 +108,10 @@ export interface Inject {
   providedIn: ProvidedIn;
 }
 
-export const $dict = {
+export const $dict: {
+  nonSingleton: string;
+  nonSingletonFn: (name: string) => string;
+} = {
   nonSingleton: '$stDecoratedNonSingleton',
   nonSingletonFn: (name: string) => $dict.nonSingleton + name,
 };

@@ -12,14 +12,14 @@
   "author": "stLmpp",
   "license": "ISC",
   "devDependencies": {
-    "@types/angular": "^1.6.56",
-    "@types/lodash": "^4.14.149",
-    "typescript": "^3.7.2",
+    "@types/angular": "^1.7.0",
+    "@types/lodash": "^4.14.155",
+    "typescript": "^3.9.5",
     "prettier": "^1.19.1",
-    "tslint": "^5.20.1"
+    "tslint": "^6.1.1"
   },
   "dependencies": {
-    "angular": "^1.7.9",
+    "angular": "^1.8.0",
     "lodash": "^4.17.15"
   },
   "repository": {

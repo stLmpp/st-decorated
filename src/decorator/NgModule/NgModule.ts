@@ -54,10 +54,12 @@ export interface NgModuleConfig {
   values?: IConstant[];
   constants?: IConstant[];
   run?: any[];
-  bootstrap?: {
-    element: HTMLElement;
-    strictDi?: boolean;
-  };
+  bootstrap?: NgModuleBootstrap;
+}
+
+export interface NgModuleBootstrap {
+  element: HTMLElement;
+  strictDi?: boolean;
 }
 
 export interface IConstant {

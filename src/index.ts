@@ -14,4 +14,4 @@ export interface StDecorate {
   globalProviders: any[];
 }
 
-export * from './decorator/Decorator.module';
+export * from './public_api';
